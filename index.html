@@ -1,0 +1,94 @@
+<style>
+
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	body {
+		background-color: #121212;
+		color: #ffffff;
+	}
+
+	
+	main {
+		height: 100dvh;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+}
+
+	.card {
+		background-color: #077A7D;
+		text-align: right;
+		border-radius: 20px;
+		padding: 20px;
+	}
+
+	.card:hover {
+		animation: girar .20s linear infinite;
+}
+
+	@keyframes girar {
+	0% {
+		transform: rotate(0deg);
+	}
+	
+	100% {
+		transform: rotate(360deg);
+	}
+}
+}
+</style>
+
+<main>
+
+<div class="card">
+	<q>Se tudo der certo, nada dará errado</q>
+	<p class="autor"> -Ermesson </p>
+</div>
+
+<audio id="som" src="./kiko.mp3" loop></audio>
+
+<script>
+
+function gerarCorAleatoria() {
+  const letras = '0123456789ABCDEF';
+  let cor = '#';
+  for (let i = 0; i < 6; i++) {
+    cor += letras[Math.floor(Math.random() * 16)];
+  }
+  return cor;
+}
+
+const card = document.querySelector('.card');
+const som = document.querySelector('#som');
+let intervaloFrenetico = null;
+
+// Inicia o pisca-pisca rápido quando o mouse entra
+card.addEventListener('mouseenter', function() {
+  intervaloFrenetico = setInterval(() => {
+    card.style.backgroundColor = gerarCorAleatoria();
+  }, 50); // Mude para 30 para ser ainda mais rápido, ou 100 para desacelerar um pouco
+
+  som.currentTime = 0;
+  som.play();
+
+});
+
+// Interrompe o efeito e limpa a cor quando o mouse sai
+card.addEventListener('mouseleave', function() {
+  clearInterval(intervaloFrenetico);
+  card.style.backgroundColor = '#ccc'; // Retorna à cor padrão
+  
+  som.pause();
+  som.currentTime = 0;
+
+});
+
+
+
+
+</script>
+
+</main>
